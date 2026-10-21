@@ -1,0 +1,118 @@
+
+<!-- saved from url=(0049)file:///C:/Users/deboj/OneDrive/Desktop/Mate.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body>html
+
+
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart QueueMate</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #eef4ff;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  color: #172554;
+}
+.card {
+  background: white;
+  max-width: 420px;
+  margin: 20px auto;
+  padding: 24px;
+  border-radius: 18px;
+  box-shadow: 0 4px 15px #0001;
+}
+select, button {
+  padding: 12px;
+  margin: 6px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+}
+button {
+  background: #1d4ed8;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+#status {
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+</style>
+
+
+<div class="card">
+  <h1>Smart QueueMate</h1>
+  <p>Smart Queue Management System</p>
+
+  <label for="counter">Select Counter</label><br>
+  <select id="counter">
+    <option>College Canteen</option>
+    <option>College Office</option>
+    <option>Xerox Centre</option>
+    <option>Library</option>
+  </select>
+
+  <h2 id="count">Students Waiting: 0</h2>
+  <h3 id="wait">Estimated Wait: 0 min</h3>
+  <p id="status" style="background: rgb(187, 247, 208);">GREEN — Low Crowd</p>
+  <p id="ticket">Your Ticket: None</p>
+
+  <button onclick="joinQueue()">Join Queue</button>
+  <button onclick="serveNext()">Serve Next</button>
+  <button onclick="resetQueue()">Reset Demo</button>
+</div>
+
+<script>
+let queue = 0;
+let ticketNo = 1;
+
+function update() {
+  document.getElementById("count").textContent =
+    "Students Waiting: " + queue;
+
+  document.getElementById("wait").textContent =
+    "Estimated Wait: " + (queue * 2) + " min";
+
+  const s = document.getElementById("status");
+
+  if (queue <= 3) {
+    s.textContent = "GREEN — Low Crowd";
+    s.style.background = "#bbf7d0";
+  } else if (queue <= 7) {
+    s.textContent = "YELLOW — Moderate Crowd";
+    s.style.background = "#fef08a";
+  } else {
+    s.textContent = "RED — High Crowd";
+    s.style.background = "#fecaca";
+  }
+}
+
+function joinQueue() {
+  document.getElementById("ticket").textContent =
+    "Your Ticket: " + ticketNo++;
+  queue++;
+  update();
+}
+
+function serveNext() {
+  if (queue > 0) queue--;
+  update();
+}
+
+function resetQueue() {
+  queue = 0;
+  ticketNo = 1;
+  document.getElementById("ticket").textContent =
+    "Your Ticket: None";
+  update();
+}
+
+update();
+</script>
+
+</body></html>
